@@ -1,0 +1,14 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+-- ACCOUNTS TABLE
+CREATE TABLE accounts (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    account_number VARCHAR(34) UNIQUE NOT NULL,
+    holder_name VARCHAR(255) NOT NULL,
+    currency VARCHAR(3) NOT NULL DEFAULT 'USD',
+    status VARCHAR(20) NOT NULL DEFAULT 'ACTIVE',
+    created_at TIMESTAMP WITH TIMEZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT chkstatus CHECK (status IN ('ACTIVE', 'FROZEN', 'CLOSED'))
+);
+
+
